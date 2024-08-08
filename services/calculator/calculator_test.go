@@ -1,4 +1,4 @@
-package services
+package calculator
 
 import (
 	"encoding/json"
