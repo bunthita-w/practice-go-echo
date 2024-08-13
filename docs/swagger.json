@@ -1,0 +1,208 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "description": "Show greeting text with API stats",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Hello"
+                ],
+                "summary": "Hello",
+                "responses": {
+                    "200": {
+                        "description": "Greeting message with API stats",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/calculator": {
+            "post": {
+                "description": "Received 2 numbers and calculate them with operator",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Calculator"
+                ],
+                "summary": "Calculate numbers with operators",
+                "parameters": [
+                    {
+                        "description": "Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/calculator.CalculatorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/calculator.CalculatorResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/calculator.CalculatorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/checkTimer/{id}": {
+            "post": {
+                "description": "Return the time passed in seconds by ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Timer"
+                ],
+                "summary": "Check timer",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Timer ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/timer.TimerResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/timer.TimerResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/startTimer": {
+            "post": {
+                "description": "Start timer and return unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Timer"
+                ],
+                "summary": "Start timer",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/timer.TimerResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/timer.TimerResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stopTimer/{id}": {
+            "delete": {
+                "description": "Stop timer and return the time passed in seconds by ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Timer"
+                ],
+                "summary": "Stop timer",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Timer ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/timer.TimerResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/timer.TimerResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "calculator.CalculatorRequest": {
+            "type": "object",
+            "properties": {
+                "firstNumber": {
+                    "type": "number"
+                },
+                "operator": {
+                    "type": "string"
+                },
+                "secondNumber": {
+                    "type": "number"
+                }
+            }
+        },
+        "calculator.CalculatorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "result": {
+                    "type": "number"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "timer.TimerResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "result": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}

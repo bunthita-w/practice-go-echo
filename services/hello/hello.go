@@ -10,6 +10,13 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// Hello godoc
+// @Summary Hello
+// @Description Show greeting text with API stats
+// @Tags Hello
+// @Produce  json
+// @Success 200 {string} string "Greeting message with API stats"
+// @Router / [get]
 func Hello(e *echo.Echo, store *sessions.CookieStore) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		session, _ := store.Get(c.Request(), "stat")

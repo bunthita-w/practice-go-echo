@@ -17,6 +17,14 @@ type TimerResponse struct {
 	Result  string `json:"result"`
 }
 
+// StartTimer godoc
+// @Summary Start timer
+// @Description Start timer and return unique ID
+// @Tags Timer
+// @Produce  json
+// @Success 200 {object} TimerResponse
+// @Failure 500 {object} TimerResponse
+// @Router /startTimer [post]
 func StartTimer(store *sessions.CookieStore) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		uid := uuid.New().String()
@@ -39,6 +47,15 @@ func StartTimer(store *sessions.CookieStore) echo.HandlerFunc {
 	}
 }
 
+// CheckTimer godoc
+// @Summary Check timer
+// @Description Return the time passed in seconds by ID.
+// @Tags Timer
+// @Produce  json
+// @Param id path string true "Timer ID"
+// @Success 200 {object} TimerResponse
+// @Failure 500 {object} TimerResponse
+// @Router /checkTimer/{id} [post]
 func CheckTimer(store *sessions.CookieStore) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		id := c.Param("id")
@@ -62,6 +79,15 @@ func CheckTimer(store *sessions.CookieStore) echo.HandlerFunc {
 	}
 }
 
+// StopTimer godoc
+// @Summary Stop timer
+// @Description Stop timer and return the time passed in seconds by ID.
+// @Tags Timer
+// @Produce  json
+// @Param id path string true "Timer ID"
+// @Success 200 {object} TimerResponse
+// @Failure 500 {object} TimerResponse
+// @Router /stopTimer/{id} [delete]
 func StopTimer(store *sessions.CookieStore) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		id := c.Param("id")

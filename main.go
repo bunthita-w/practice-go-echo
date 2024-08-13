@@ -7,9 +7,12 @@ import (
 	"practice-go-echo/routes"
 	"time"
 
+	_ "practice-go-echo/docs"
+
 	"github.com/gorilla/sessions"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 var startServerTime time.Time
@@ -21,6 +24,8 @@ func init() {
 
 func main() {
 	e := echo.New()
+
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	err := godotenv.Load()
 	if err != nil {

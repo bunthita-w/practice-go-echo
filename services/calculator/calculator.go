@@ -9,7 +9,7 @@ import (
 )
 
 type CalculatorRequest struct {
-	FirstNumber  float64 `json:"firstName"`
+	FirstNumber  float64 `json:"firstNumber"`
 	SecondNumber float64 `json:"secondNumber"`
 	Operator     string  `json:"operator"`
 }
@@ -24,6 +24,16 @@ func Hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello World!")
 }
 
+// Calculator godoc
+// @Summary Calculate numbers with operators
+// @Description Received 2 numbers and calculate them with operator
+// @Tags Calculator
+// @Accept  json
+// @Produce  json
+// @Param request body CalculatorRequest true "Request Body"
+// @Success 200 {object} CalculatorResponse
+// @Failure 400 {object} CalculatorResponse
+// @Router /calculator [post]
 func Calculator(c echo.Context) error {
 	var request CalculatorRequest
 

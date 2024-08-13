@@ -1,0 +1,134 @@
+definitions:
+  calculator.CalculatorRequest:
+    properties:
+      firstNumber:
+        type: number
+      operator:
+        type: string
+      secondNumber:
+        type: number
+    type: object
+  calculator.CalculatorResponse:
+    properties:
+      message:
+        type: string
+      result:
+        type: number
+      success:
+        type: boolean
+    type: object
+  timer.TimerResponse:
+    properties:
+      message:
+        type: string
+      result:
+        type: string
+      success:
+        type: boolean
+    type: object
+info:
+  contact: {}
+paths:
+  /:
+    get:
+      description: Show greeting text with API stats
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Greeting message with API stats
+          schema:
+            type: string
+      summary: Hello
+      tags:
+      - Hello
+  /calculator:
+    post:
+      consumes:
+      - application/json
+      description: Received 2 numbers and calculate them with operator
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/calculator.CalculatorRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/calculator.CalculatorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/calculator.CalculatorResponse'
+      summary: Calculate numbers with operators
+      tags:
+      - Calculator
+  /checkTimer/{id}:
+    post:
+      description: Return the time passed in seconds by ID.
+      parameters:
+      - description: Timer ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/timer.TimerResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/timer.TimerResponse'
+      summary: Check timer
+      tags:
+      - Timer
+  /startTimer:
+    post:
+      description: Start timer and return unique ID
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/timer.TimerResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/timer.TimerResponse'
+      summary: Start timer
+      tags:
+      - Timer
+  /stopTimer/{id}:
+    delete:
+      description: Stop timer and return the time passed in seconds by ID.
+      parameters:
+      - description: Timer ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/timer.TimerResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/timer.TimerResponse'
+      summary: Stop timer
+      tags:
+      - Timer
+swagger: "2.0"
